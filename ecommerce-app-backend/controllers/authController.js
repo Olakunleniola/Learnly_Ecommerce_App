@@ -4,7 +4,7 @@ const db = require('../models');
 
 const { User } = db;
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
@@ -31,8 +31,7 @@ exports.login = async (req, res) => {
       res.json({ token });
     });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    next(err);
   }
 };
 

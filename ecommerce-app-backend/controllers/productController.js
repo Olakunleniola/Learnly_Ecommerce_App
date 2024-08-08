@@ -2,17 +2,16 @@ const db = require('../models');
 
 const { Product } = db;
 
-exports.getProducts = async (req, res) => {
+exports.getProducts = async (req, res, next) => {
   try {
     const products = await Product.findAll();
     res.json(products);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    next(err);
   }
 };
 
-exports.addProduct = async (req, res) => {
+exports.addProduct = async (req, res, next) => {
   const { name, description, price, imageURL } = req.body;
 
   try {
@@ -26,12 +25,11 @@ exports.addProduct = async (req, res) => {
 
     res.json(newProduct);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    next(err);
   }
 };
 
-exports.updateProduct = async (req, res) => {
+exports.updateProduct = async (req, res, next) => {
   const { name, description, price, imageURL } = req.body;
 
   try {
@@ -54,12 +52,11 @@ exports.updateProduct = async (req, res) => {
 
     res.json(product);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    next(err);
   }
 };
 
-exports.deleteProduct = async (req, res) => {
+exports.deleteProduct = async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
 
@@ -75,7 +72,6 @@ exports.deleteProduct = async (req, res) => {
 
     res.json({ msg: 'Product removed' });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    next(err);
   }
 };
