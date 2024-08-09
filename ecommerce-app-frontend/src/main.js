@@ -4,9 +4,9 @@ import store from './store';
 import App from './App.vue';
 import ProductList from './components/ProductList.vue';
 import ProductDetail from './components/ProductDetail.vue';
-import AddProduct from './components/AddProduct.vue';
-import EditProduct from './components/EditProduct.vue';
-// import LogIn from './components/LogIn.vue';
+import AddProduct from './components/AddEditProduct.vue';
+import EditProduct from './components/AddEditProduct.vue';
+import LogIn from './components/LogIn.vue';
 import './assets/tailwind.css';
 
 const routes = [
@@ -14,7 +14,7 @@ const routes = [
     { path: '/product/:id', component: ProductDetail, props: true },
     { path: '/add-product', component: AddProduct, meta: { requiresAuth: true } },
     { path: '/edit-product/:id', component: EditProduct, props: true, meta: { requiresAuth: true } },
-    // { path: '/login', component: LogIn },
+    { path: '/login', component: LogIn },
 ];
 
 const router = createRouter({
