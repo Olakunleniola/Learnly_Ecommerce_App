@@ -10,11 +10,11 @@ import LogIn from './components/LogIn.vue';
 import './assets/tailwind.css';
 
 const routes = [
-    { path: '/', component: ProductList },
-    { path: '/product/:id', component: ProductDetail, props: true },
-    { path: '/add-product', component: AddProduct, meta: { requiresAuth: true } },
-    { path: '/edit-product/:id', component: EditProduct, props: true, meta: { requiresAuth: true } },
-    { path: '/login', component: LogIn },
+  { path: '/', name: 'Home', component: ProductList },
+  { path: '/products/:id', name: 'ProductDetail', component: ProductDetail },
+  { path: '/add-product', name: 'AddProduct', component: AddProduct, meta: { requiresAuth: true } },
+  { path: '/edit-product/:id', name: 'EditProduct', component: EditProduct, meta: { requiresAuth: true } },
+  { path: '/login', name: 'Login', component: LogIn },
 ];
 
 const router = createRouter({

@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
+const url = "http://localhost:3000"
+
 export default createStore({
     state: {
         products: [],
@@ -24,32 +26,32 @@ export default createStore({
     },
     actions: {
         async fetchProducts({ commit }) {
-            const response = await axios.get('/api/products');
+            const response = await axios.get(`${url}/products`);
             commit('setProducts', response.data);
         },
         async login({ commit }, credentials) {
-            const response = await axios.post('/api/auth/login', credentials);
+            const response = await axios.post(`${url}/auth/login`, credentials);
             commit('setToken', response.data.token);
         },
         logout({ commit }) {
             commit('clearAuth');
         },
         async addProduct({ state }, productData) {
-            await axios.post('/api/products', productData, {
+            await axios.post(`${url}/products`, productData, {
                 headers: {
                     Authorization: `Bearer ${state.token}`,
                 },
             });
         },
         async editProduct({ state }, { id, productData }) {
-            await axios.put(`/api/products/${id}`, productData, {
+            await axios.put(`${url}/products/${id}`, productData, {
                 headers: {
                     Authorization: `Bearer ${state.token}`,
                 },
             });
         },
         async deleteProduct({ state }, id) {
-            await axios.delete(`/api/products/${id}`, {
+            await axios.delete(`${url}/products/${id}`, {
                 headers: {
                     Authorization: `Bearer ${state.token}`,
                 },
