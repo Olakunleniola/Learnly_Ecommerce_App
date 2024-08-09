@@ -19,7 +19,15 @@
           <p class="text-blue-500 font-bold">{{ formatCurrency(product.price) }}</p>
           <div v-if="isAuthenticated" class="mt-2 flex space-x-2">
             <button @click.stop="editProduct(product)" class="bg-yellow-500 text-white p-2 rounded">Edit</button>
-            <button @click.stop="deleteProduct(product.id)" class="bg-red-500 text-white p-2 rounded">Delete</button>
+            <button
+              @click.stop="deleteProduct(product.id)"
+              class="bg-red-500 text-white p-2 rounded"
+              :class="{ 'hover:bg-red-600': !isDeleting(product.id), 'bg-gray-400 cursor-not-allowed': isDeleting(product.id) }"
+              :disabled="isDeleting(product.id)"
+            >
+              <span v-if="!isDeleting(product.id)">Delete</span>
+              <span v-else>Deleting... Please wait</span>
+            </button>
           </div>
         </div>
       </div>
@@ -31,6 +39,7 @@
     data() {
       return {
         searchQuery: '',
+        deletingProducts: [], // Track the deletion state of products
       };
     },
     computed: {
@@ -53,8 +62,20 @@
       editProduct(product) {
         this.$router.push({ name: 'EditProduct', params: { id: product.id } });
       },
-      deleteProduct(id) {
-        this.$store.dispatch('deleteProduct', id);
+      isDeleting(id) {
+        return this.deletingProducts.includes(id);
+      },
+      async deleteProduct(id) {
+        if (!this.isDeleting(id)) {
+          this.deletingProducts.push(id);
+          try {
+            await this.$store.dispatch('deleteProduct', id);
+          } catch (error) {
+            console.error('Error deleting product:', error);
+          } finally {
+            this.deletingProducts = this.deletingProducts.filter(productId => productId !== id);
+          }
+        }
       },
     },
     mounted() {

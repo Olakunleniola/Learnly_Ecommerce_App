@@ -39,21 +39,21 @@ export default createStore({
         async addProduct({ state }, productData) {
             await axios.post(`${url}/products`, productData, {
                 headers: {
-                    Authorization: `Bearer ${state.token}`,
+                    'x-auth-token': state.token,
                 },
             });
         },
         async editProduct({ state }, { id, productData }) {
             await axios.put(`${url}/products/${id}`, productData, {
                 headers: {
-                    Authorization: `Bearer ${state.token}`,
+                    'x-auth-token': state.token,
                 },
             });
         },
         async deleteProduct({ state }, id) {
             await axios.delete(`${url}/products/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${state.token}`,
+                    'x-auth-token': state.token,
                 },
             });
         },

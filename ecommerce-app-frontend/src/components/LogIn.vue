@@ -20,14 +20,23 @@
             required
           />
         </div>
-        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
-          Login
+        <button
+          type="submit"
+          class="w-full p-2 rounded text-white"
+          :class="{
+            'bg-blue-500 hover:bg-blue-600': !isSubmitting,
+            'bg-gray-400 cursor-not-allowed': isSubmitting,
+          }"
+          :disabled="isSubmitting"
+        >
+          <span v-if="!isSubmitting">Login</span>
+          <span v-else>Logging in... Please wait</span>
         </button>
       </form>
     </div>
-</template>
+  </template>
   
-<script>
+  <script>
   export default {
     data() {
       return {
@@ -35,18 +44,22 @@
           email: '',
           password: '',
         },
+        isSubmitting: false, // Track the submission state
       };
     },
     methods: {
       async submitForm() {
+        this.isSubmitting = true;
         try {
           await this.$store.dispatch('login', this.credentials);
           this.$router.push('/');
         } catch (error) {
           console.error('Login failed', error);
+        } finally {
+          this.isSubmitting = false;
         }
       },
     },
   };
-</script>
+  </script>
   
