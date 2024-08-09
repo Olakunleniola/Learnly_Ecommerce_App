@@ -5,7 +5,8 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const { handleError } = require('./middlewares/errorMiddleware');
-const db = require('./models/index')
+const db = require('./models/index');
+const logger = require('morgan')
 
 dotenv.config();
 
@@ -14,9 +15,14 @@ const app = express();
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-  };
-  app.use(cors(corsOptions));
+};
 
+app.use(cors(corsOptions));
+  
+if (process.env.NODE_ENV !== 'production') {
+    app.use(logger('dev'));
+}
+  
 app.use(bodyParser.json());
 
 app.use('/auth', authRoutes);
