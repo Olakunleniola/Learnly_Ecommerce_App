@@ -1,28 +1,25 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="min-h-screen flex flex-col">
+    <header class="bg-blue-500 text-white p-4">
+      <h1 class="text-2xl font-bold">E-commerce App</h1>
+    </header>
+    
+    <main class="flex-grow p-4">
+      <router-view />
+    </main>
+
+    <footer class="bg-blue-500 text-white p-4 mt-auto">
+      <p>&copy; 2024 E-commerce App. All rights reserved.</p>
+    </footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  /* Additional custom styles if needed */
 </style>
