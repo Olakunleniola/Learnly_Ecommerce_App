@@ -14,11 +14,11 @@ Make sure you have the following installed on your machine:
 ### Cloning the Repository
 
 ```bash
-git clone https://github.com/Olakunleniola/SocialVidz-App.git
+git clone https://github.com/Olakunleniola/Learnly_Ecommerce_App.git
 ```
 
 ```bash
-cd SocialVidz-App
+cd Learnly_Ecommerce_App
 ```
 
 ## Backend Setup
